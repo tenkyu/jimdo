@@ -24,6 +24,9 @@ class App extends React.Component {
 
     this.state = {
       blocking: false,
+      show: false,
+      values: null,
+      errors: null
     };
   }
 
@@ -47,8 +50,6 @@ class App extends React.Component {
       this.callServer();
     }
   }
-
-
 
   componentDidMount() {
     var root = document.getElementById('root')
@@ -88,7 +89,7 @@ class App extends React.Component {
 
               <div className="row col-sm-9 offset-sm-3">
 
-                <Button color="primary">Submit</Button>
+                <Button color="primary" id="btnSubmit">Submit</Button>
               </div>
 
             </AvForm>
