@@ -4,50 +4,35 @@ import ReactTestUtils from 'react-dom/test-utils';
 import { AvForm, AvInput } from 'availity-reactstrap-validation';
 import App from './App';
 
-function scryRenderedDOMComponentsWithId(tree, id) {
-  return ReactTestUtils.findAllInRenderedTree(tree, function(inst) {
-    return ReactTestUtils.isDOMComponent(inst) && inst.id === id;
-  });
-}
-
+// this is default test method
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<App />, div);
 });
 
-it('click event test', () => {
-  let instance = ReactTestUtils.renderIntoDocument(
-    <App/>
-  );
+//this method is written for Task #3
+it('form submitting', (done) => {
+  //simulating the user inputs with these values
+  const fakeData = {name: 'Çetin Yılmaz', email: 'nospam@gmail.com', message:'This is a test message'};
 
-  let inputName = scryRenderedDOMComponentsWithId(instance, "name");
-  inputName[0].value = 'Çetin Yılmaz';
-
-  let inputEmail = scryRenderedDOMComponentsWithId(instance, "email");
-  inputEmail[0].value = 'cetinyilmaz@gmail.com';
-
-  let inputMessage = scryRenderedDOMComponentsWithId(instance, "message");
-  //inputMessage[0].value = 'This is test message';
-
-  //let button = scryRenderedDOMComponentsWithId(instance, "btnSubmit");
-  //ReactTestUtils.Simulate.click(button[0]);
-  //console.log(instance.state);
-  //ReactTestUtils.Simulate.click(clickDiv[0]);
+  //initialize the component
+  let component = ReactTestUtils.renderIntoDocument(
+    <App defaultValues={fakeData} />
+  ); 
+ 
+  //submit form
+  var form = ReactTestUtils.findRenderedDOMComponentWithTag(component, 'form');
+  ReactTestUtils.Simulate.submit(form);
   
-  
-  var form = ReactTestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-  form.simulate('submit', { preventDefault () {} })
-  
-  //console.log(form);
-  //ReactTestUtils.Simulate.submit(form);
-
-  console.log(instance.state);
-
-  //expect(instance.state.values).toEqual("some value");
-
-});
-
-it('test demo', () => {
-
+  //check handled values are posted to backend
+  setTimeout(function() {
+      try {
+        console.log(component.state);// see all states after form posted
+        expect(component.state.values.name).toEqual(fakeData.name);
+        done()
+      } catch (e) {
+        done.fail(e)
+      }
+  }, 100);
 
 });
