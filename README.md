@@ -5,6 +5,7 @@ Hi! I'm Çetin Yılmaz,  i like using CI/CD pipelines and CVS so some steps may 
  1. Firstly I pushed your project into my github repository, here is the
     link https://github.com/tenkyu/jimdo
  2. Created a Heroku application for Continuous integration, delivery, and deployment: https://jimdo.herokuapp.com
+ 3. You can watch the video for detailed and visual explanations: https://youtu.be/9NQsV87m7TM
 
 ## Task #1
 
